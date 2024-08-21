@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js Bathroom Visualization</title>
+  <style>
+    body { margin: 0; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Create floor
+    const geometry = new THREE.BoxGeometry(10, 0.1, 10);
+    const material = new THREE.MeshBasicMaterial({ color: 0xdeb887 }); // Light brown
+    const floor = new THREE.Mesh(geometry, material);
+    scene.add(floor);
+
+    // Create walls
+    const wallGeometry = new THREE.BoxGeometry(0.1, 2, 10);
+    const wallMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // White
+    const wall1 = new THREE.Mesh(wallGeometry, wallMaterial);
+    wall1.position.set(-5, 1, 0);
+    scene.add(wall1);
+
+    // Create other fixtures (simplified)
+    const sinkGeometry = new THREE.BoxGeometry(1, 0.5, 0.5);
+    const sinkMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const sink = new THREE.Mesh(sinkGeometry, sinkMaterial);
+    sink.position.set(-2, 0.25, 0);
+    scene.add(sink);
+
+    // Camera position
+    camera.position.z = 15;
+
+    // Render loop
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
